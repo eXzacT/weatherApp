@@ -1,4 +1,5 @@
-<div class="w-128 mx-auto bg-gray-900 text-white text-sm rounded-lg overflow-hidden">
+<div class="w-128 mx-auto bg-gray-900 text-white text-sm rounded-lg overflow-hidden mt-1"
+     x-data="{isFutureWeatherVisible: false}">
     <div class="current-weather relative">
         <div class="flex items-center justify-between px-4 py-6">
             <div class="flex items-center">
@@ -15,9 +16,10 @@
                 <img src="http://openweathermap.org/img/wn/{{$currentWeather['weather'][0]['icon']}}@4x.png" alt="icon">
             </div>
         </div>
-        <button class="absolute right-0 bottom-0 mb-2 mr-2 text-xs">Toggle</button>
+        <button @click="isFutureWeatherVisible = !isFutureWeatherVisible"
+                class="absolute right-0 bottom-0 mb-2 mr-2 text-xs">Toggle</button>
     </div> <!-- Current weather (02/11/2023) -->
-    <ul class="bg-gray-800 px-4 py-6">
+    <ul x-cloak x-show="isFutureWeatherVisible" class="bg-gray-800 px-4 py-6">
         @foreach($futureWeather as $weather)
             <li class="grid grid-cols-12 gap-4 mb-4 items-center p-4 rounded-lg bg-gray-700">
                 <!-- Day of the week -->

@@ -34,4 +34,8 @@ return [
     'openWeather' => [
         'key' => env('OPEN_WEATHER_KEY')
     ],
+
+    'apiNinjas'=>[
+        'key' => env('API_NINJAS_KEY')
+    ]
 ];
