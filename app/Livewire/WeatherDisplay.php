@@ -7,17 +7,13 @@ use Livewire\Component;
 
 class WeatherDisplay extends Component
 {
-    public string $location;
+    public string $city;
     public $currentWeather;
     public $futureWeather;
-
-    protected $listeners = [
-        'locationSelected' => 'updateLocation'
-    ];
-
+    protected $listeners = ['citySelected'];
     public function mount()
     {
-        $this->location = "Dubrovnik";
+        $this->city = "Dubrovnik";
         $this->fetchWeather();
     }
 
@@ -26,9 +22,9 @@ class WeatherDisplay extends Component
         return view('livewire.weather-display');
     }
 
-    public function updateLocation($location)
+    public function citySelected($city)
     {
-        $this->location=$location;
+        $this->city=$city;
         $this->fetchWeather();
     }
 
@@ -37,7 +33,7 @@ class WeatherDisplay extends Component
         $apiKeyWeather = config('services.openWeather.key');
 
         $currentWeather = Http::get(
-            "https://api.openweathermap.org/data/2.5/weather?q={$this->location}&appid={$apiKeyWeather}&units=metric"
+            "https://api.openweathermap.org/data/2.5/weather?q={$this->city}&appid={$apiKeyWeather}&units=metric"
         )->json();
         // If there's an error
         if ($currentWeather['cod']==404) {
@@ -48,7 +44,7 @@ class WeatherDisplay extends Component
         $this->currentWeather=$currentWeather;
 
         $futureWeather = Http::get(
-            "https://api.openweathermap.org/data/2.5/forecast?q={$this->location}&cnt=40&appid={$apiKeyWeather}&units=metric"
+            "https://api.openweathermap.org/data/2.5/forecast?q={$this->city}&cnt=40&appid={$apiKeyWeather}&units=metric"
         );
         // Since api is giving us forecast every 3 hours, but we want daily we use a filter (03/11/2023)
         $this->futureWeather= collect($futureWeather['list'])->filter(function ($value, $key) {

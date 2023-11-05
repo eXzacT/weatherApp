@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::View('/','welcome');
+Route::View('/','index');

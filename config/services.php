@@ -35,7 +35,7 @@ return [
         'key' => env('OPEN_WEATHER_KEY')
     ],
 
-    'apiNinjas'=>[
-        'key' => env('API_NINJAS_KEY')
-    ]
+    'googlePlaces' => [
+        'key' => env('GOOGLE_PLACES_KEY')
+    ],
 ];
